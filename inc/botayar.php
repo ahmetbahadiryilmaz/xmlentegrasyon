@@ -6,6 +6,7 @@ $siteler=[
     "oysho",
     "stradiv",
     "hm",
+    "mango",
     
 ];
 

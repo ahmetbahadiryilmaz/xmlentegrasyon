@@ -11,6 +11,7 @@ require_once "botayar.php";
 
 
 
+require_once("model/good.model.php");
 require_once("model/goods.model.php");
 require_once "model/veri.model.php";
 require_once "model/variantimages.model.php";
@@ -23,6 +24,7 @@ require_once "botlar/pulland.php";
 require_once "botlar/oysho.php";
 require_once "botlar/stradiv.php";
 require_once "botlar/hm.php";
+require_once "botlar/mango.php";
 
 
 

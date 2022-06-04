@@ -144,6 +144,8 @@
 	try{ 
 	    db::$conn = new PDO("mysql:host=$ip;dbname=$dbase;charset=utf8mb4",$user,$password);
 		db::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		db::$conn->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
+	 
 		// türkçe karakter için utf8
 		db::$conn->exec("set names utf8mb4");
 	 

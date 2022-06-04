@@ -52,18 +52,44 @@ class hm{
          
        
         $f=  f::clean(($getPage));
-        preg_match_all("#productArticleDetails.*?\{(.*?)};#si",$f,$m);
-        $hmjson="{".$m[1][0]."}";
+       
+        $splity=explode("productArticleDetails = {",$f);
+        $splity2=explode("};",$splity[1]);
+         
+        $hmjson="{".$splity2[0]."}";
+       
         $hmjson =  preg_replace("#(isDesktop.*?:\s')#","'",$hmjson);
    
         $hmjson = str_replace("\'","",trim($hmjson));
         $hmjson = str_replace("'","\"",trim($hmjson));
      
 
+        $hmjson=str_replace("\n","",$hmjson);
+        $hmjson = str_replace("\x0B", '', $hmjson);
+        $hmjson = str_replace('	', '', $hmjson);	
+        $hmjson = str_replace("\r", '', $hmjson);
+        $hmjson=str_replace("},}","}}",$hmjson);
+
+
+
         $hm  = (json_decode($hmjson));
-      
-      
-      
+     
+       if(!isset($hm->alternate)){
+       
+          $this->error = fetchError::$skubulunamadi;
+          return false;
+ 
+       }
+       preg_match_all('#\@type"\:\"ListItem\".*?name"\:"(.*?)".*?\}#si',$f,$m2);
+       $m2=$m2[1];
+       unset($m2[0]);
+       // Re-index the array elements
+       $m2 = array_values($m2);
+       unset($m2[count($m2)-1]);
+       $m2 = array_values($m2);
+       
+       $good->Category = $m2[count($m2)-1];
+       $good->CategoryTree = join(">",$m2);
         //$good->GoodId=$goodid[1]; 
         $good->Title=   (trim(current(explode("- {",$hm->alternate))));
         //$good->REFERENCE=   (trim(current(explode("_",$hm->productKey))));

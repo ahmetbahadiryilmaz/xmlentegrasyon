@@ -6,7 +6,8 @@ class curl{
             private $header;
             private $httpCode;
             private $cacheFolder = __DIR__."/../cache/";
-            private $cache=true;
+            public $cache=true;
+            private $httpHeader=[ 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:28.0) Gecko/20100101 Firefox/28.0'];
 
             function __construct()
             {
@@ -84,7 +85,13 @@ class curl{
 
              }
            
+             public function addReqHeader($reqHead){
+                $this->httpHeader[]=$reqHead;
+             }
 
+             public function emptyReqHeader(){
+                $this->httpHeader=[];
+             }
 
              public  function getPage($url){
                 
@@ -106,7 +113,10 @@ class curl{
                  curl_setopt($ch, CURLOPT_COOKIEJAR,  $this->cookieFile); // Cookie aware
                  curl_setopt($ch, CURLOPT_HEADER, true);
                  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-                   
+                 if(count($this->httpHeader)>0){
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, $this->httpHeader);
+                 }
+          
                 $r = curl_exec($ch);
                 $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
                 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);

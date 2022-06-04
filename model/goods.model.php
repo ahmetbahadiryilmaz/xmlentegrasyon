@@ -1,12 +1,11 @@
 <?
-
-require_once __DIR__."/../inc/xmlSerializer.php";
-require_once __DIR__."/good.model.php";
-
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
+ 
+ 
+ use Symfony\Component\Serializer\Encoder\JsonEncoder;
+ use Symfony\Component\Serializer\Encoder\XmlEncoder;
+ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+ use Symfony\Component\Serializer\Serializer;
+ 
 
 
 
@@ -25,8 +24,13 @@ class goods{
       
       foreach (self::$goods as $good ) {
         /** @var good $good */
+
+
+
         $variantsarr= [];
         foreach ($good->Variants as $variant) {
+          if(!$variant->VaryantReference)unset($variant->VaryantReference);
+        
           $variantsarr["Variant"][]= $variant ;
         }
         $good->Variants=$variantsarr;
@@ -37,6 +41,8 @@ class goods{
           }
         } 
     
+        if($good->REFERENCE=="")unset($good->REFERENCE);
+        if($good->CategoryTree=="")unset($good->CategoryTree);
         $arr["Good"][]=$good;
       }
       return $arr;
@@ -44,7 +50,7 @@ class goods{
 
     public static function printXml(){
 
-        header("Content-type: text/xml");
+        
         //$c = new xmlSerializer(["goods"=>self::$goods]);
         //echo $c->xml->saveXML();
 
