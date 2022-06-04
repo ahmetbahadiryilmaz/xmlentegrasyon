@@ -80,7 +80,7 @@ class bershaka{
        
        $good->GoodId=$goodid[0];
  
-        if(veri::isStockIdExists($good->GoodId,get_class($this))){  
+          if(veri::isStockIdExists($good->GoodId,get_class($this)) && $this->mode= modes::$create){  
             $this->error= fetchError::$stokzatenvar;
             return false;
         } 

@@ -1,1 +1,0 @@
-{"status":400,"message":"Missing the parameter 'stock-id' in the header.","description":null}

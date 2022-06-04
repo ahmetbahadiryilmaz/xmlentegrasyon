@@ -8,9 +8,14 @@ class mango{
      public $classname="mango";
      public $stockid="";
      
+     private $mode= modes::$create;
      public function __construct( ) {
         $this->good=new good();
      }
+     public function setMode($mode){
+      $this->mode=$mode;
+     }
+
 
      public static function getProductUrls(string $kategorihtml){
         $prodlar=[];
@@ -184,7 +189,7 @@ class mango{
   
     
 
-      if(veri::isStockIdExists($good->GoodId,get_class($this))){  
+        if(veri::isStockIdExists($good->GoodId,get_class($this)) && $this->mode= modes::$create){  
      
           $this->error= fetchError::$stokzatenvar;    
           return false;

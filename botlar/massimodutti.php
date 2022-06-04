@@ -5,9 +5,14 @@ class massimodutti{
      public $good ;
      public $error="";
 
+     private $mode= modes::$create;
      public function __construct( ) {
         $this->good=new good();
      }
+     public function setMode($mode){
+      $this->mode=$mode;
+     }
+
      public  function setPrice($price){
       $price= str_replace("TL","",$price);
       $price= str_replace(",","",$price);
@@ -96,7 +101,7 @@ class massimodutti{
        
        $good->GoodId=$goodid[0];
  
-        if(veri::isStockIdExists($good->GoodId,get_class($this))){  
+          if(veri::isStockIdExists($good->GoodId,get_class($this)) && $this->mode= modes::$create){  
           $this->error=fetchError::$stokzatenvar;
           return false;
         } 

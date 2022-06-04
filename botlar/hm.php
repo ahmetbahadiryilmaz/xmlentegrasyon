@@ -7,9 +7,14 @@ class hm{
      public $error="";
      public $classname="hm";
      
+     private $mode= modes::$create;
      public function __construct( ) {
         $this->good=new good();
      }
+     public function setMode($mode){
+      $this->mode=$mode;
+     }
+
 
  
 
@@ -109,7 +114,7 @@ class hm{
   
     
 
-      if(veri::isStockIdExists($good->GoodId,get_class($this))){  
+        if(veri::isStockIdExists($good->GoodId,get_class($this)) && $this->mode= modes::$create){  
      
           $this->error= fetchError::$stokzatenvar;    
           return false;
